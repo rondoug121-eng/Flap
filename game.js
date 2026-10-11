@@ -25,11 +25,67 @@ function drawBird(){if(!bird)return;ctx.save();ctx.translate(bird.x,bird.y);ctx.
 function drawScore(){ctx.save();ctx.fillStyle="rgba(18,43,59,.24)";rr(W/2-39,82,78,56,20);ctx.strokeStyle="rgba(255,255,255,.30)";ctx.lineWidth=1.5;ctx.beginPath();ctx.roundRect(W/2-39,82,78,56,20);ctx.stroke();shadowText(String(score),W/2,110,38,"#fff",900);ctx.restore()}
 function drawPause(){ctx.save();ctx.fillStyle="rgba(18,43,59,.34)";ctx.beginPath();ctx.arc(W-43,110,25,0,TAU);ctx.fill();ctx.strokeStyle="rgba(255,255,255,.5)";ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(W-43,110,25,0,TAU);ctx.stroke();ctx.fillStyle="#fff";rr(W-51,101,5,18,2);rr(W-40,101,5,18,2);ctx.restore()}
 function card(y,h){ctx.fillStyle="rgba(19,35,48,.82)";rr(35,y,W-70,h,24);ctx.strokeStyle="rgba(255,255,255,.10)";ctx.lineWidth=1;ctx.stroke()}
-function drawTitle(){card(235,315);shadowText("FLAPPY",W/2,292,48,"#fff",900);shadowText("RETRO",W/2,344,48,"#fff",900);ctx.fillStyle="rgba(255,255,255,.09)";rr(112,375,226,66,18);ctx.fillStyle="#ffc83d";ctx.beginPath();ctx.arc(140,408,17,0,TAU);ctx.fill();shadowText("TAP TO FLY",225,408,21,"#fff",800);shadowText(`BEST ${best}`,W/2,470,18,"#ffe16b",800);shadowText("Tap anywhere to flap",W/2,505,14,"rgba(255,255,255,.65)",600)}
-function drawPausePanel(){card(285,205);shadowText("PAUSED",W/2,340,38,"#fff",900);shadowText("TAP TO RESUME",W/2,400,18,"#ffe16b",800);shadowText(`SCORE ${score}`,W/2,438,15,"rgba(255,255,255,.7)",700)}
-function drawGameOver(){card(245,330);shadowText("FLIGHT OVER",W/2,300,34,"#fff",900);shadowText(String(score),W/2,360,58,"#ffe16b",900);shadowText(`BEST ${best}`,W/2,408,16,"rgba(255,255,255,.72)",700);const m=medalFor(score);if(m[0]){ctx.fillStyle="rgba(255,211,91,.12)";rr(126,435,198,42,21);shadowText(`${m[1]} ${m[0]}`,225,456,15,"#ffe16b",800)}ctx.fillStyle="#ffc83d";rr(104,500,242,54,18);shadowText("PLAY AGAIN",225,527,18,"#1e2933",900)}
+function drawTitle(){
+  // Polished arcade-style main menu, keeping the original retro game art.
+  ctx.fillStyle="rgba(8,25,40,.12)";ctx.fillRect(0,0,W,H);
+  card(205,370);
+  ctx.fillStyle="rgba(255,255,255,.08)";rr(155,225,140,7,4);
+  shadowText("FLAPPY",W/2,280,48,"#fff",900);
+  shadowText("RETRO",W/2,329,48,"#ffc83d",900);
+  shadowText("A TINY BIRD. A BIG CHALLENGE.",W/2,365,13,"rgba(255,255,255,.72)",700);
+  // Decorative bird medallion
+  ctx.fillStyle="rgba(255,200,61,.13)";ctx.beginPath();ctx.arc(W/2,414,31,0,TAU);ctx.fill();
+  ctx.fillStyle="#ffc83d";ctx.beginPath();ctx.ellipse(W/2-2,414,18,15,0,0,TAU);ctx.fill();
+  ctx.fillStyle="#ffe47a";ctx.beginPath();ctx.ellipse(W/2-5,409,10,7,-.2,0,TAU);ctx.fill();
+  ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(W/2+7,409,5,0,TAU);ctx.fill();
+  ctx.fillStyle="#202936";ctx.beginPath();ctx.arc(W/2+8,409,1.8,0,TAU);ctx.fill();
+  ctx.fillStyle="#f27a39";ctx.beginPath();ctx.moveTo(W/2+14,413);ctx.lineTo(W/2+27,417);ctx.lineTo(W/2+14,421);ctx.closePath();ctx.fill();
+  ctx.fillStyle="#ffc83d";rr(104,463,242,62,19);
+  shadowText("▶  PLAY",W/2,494,22,"#202936",900);
+  shadowText(`BEST SCORE  ${best}`,W/2,555,18,"#ffe16b",800);
+  shadowText("Tap PLAY to begin your flight",W/2,590,14,"rgba(255,255,255,.65)",600);
+  shadowText("FLAP  •  DODGE  •  BEAT YOUR BEST",W/2,625,11,"rgba(255,255,255,.42)",700);
+}
+function drawPausePanel(){
+  ctx.fillStyle="rgba(8,20,34,.34)";ctx.fillRect(0,0,W,H);
+  card(275,255);shadowText("PAUSED",W/2,320,38,"#fff",900);
+  shadowText(`SCORE  ${score}`,W/2,362,16,"rgba(255,255,255,.72)",700);
+  ctx.fillStyle="#ffc83d";rr(104,390,242,54,17);shadowText("RESUME",W/2,417,18,"#202936",900);
+  ctx.fillStyle="rgba(255,255,255,.10)";rr(104,458,242,50,16);shadowText("MAIN MENU",W/2,483,17,"#fff",800);
+}
+function drawGameOver(){
+  ctx.fillStyle="rgba(8,20,34,.38)";ctx.fillRect(0,0,W,H);
+  card(195,410);shadowText("FLIGHT OVER",W/2,240,34,"#fff",900);
+  shadowText(String(score),W/2,302,58,"#ffe16b",900);
+  shadowText("YOUR SCORE",W/2,344,13,"rgba(255,255,255,.65)",700);
+  shadowText(`BEST  ${best}`,W/2,375,17,"rgba(255,255,255,.82)",800);
+  const m=medalFor(score);
+  if(m[0]){ctx.fillStyle="rgba(255,211,91,.12)";rr(126,395,198,38,19);shadowText(`${m[1]} ${m[0]}`,225,414,15,"#ffe16b",800)}
+  ctx.fillStyle="#ffc83d";rr(104,448,242,54,17);shadowText("PLAY AGAIN",W/2,475,18,"#202936",900);
+  ctx.fillStyle="rgba(255,255,255,.10)";rr(104,516,242,52,17);shadowText("MAIN MENU",W/2,542,17,"#fff",800);
+}
 function loop(now){const dt=Math.min(32,now-(last||now-16));last=now;update(dt);draw();requestAnimationFrame(loop)}
 reset();requestAnimationFrame(loop);
 let lastInput=0;
-function input(e){if(e?.cancelable)e.preventDefault();const n=performance.now();if(n-lastInput<130)return;lastInput=n;const r=c.getBoundingClientRect(),px=((e?.clientX??r.left+r.width/2)-r.left)*W/r.width,py=((e?.clientY??r.top+r.height/2)-r.top)*H/r.height;if(state==="play"&&px>W-92&&py>72&&py<153){pause();return}flap()}
+function input(e){
+  if(e?.cancelable)e.preventDefault();
+  const n=performance.now();if(n-lastInput<130)return;lastInput=n;
+  const r=c.getBoundingClientRect(),px=((e?.clientX??r.left+r.width/2)-r.left)*W/r.width,py=((e?.clientY??r.top+r.height/2)-r.top)*H/r.height;
+  if(state==="play"&&px>W-92&&py>72&&py<153){pause();return}
+  if(state==="title"){
+    if(px>=85&&px<=365&&py>=445&&py<=540){start();return}
+    return;
+  }
+  if(state==="over"){
+    if(px>=85&&px<=365&&py>=438&&py<=507){start();return}
+    if(px>=85&&px<=365&&py>=507&&py<=575){reset();state="title";return}
+    return;
+  }
+  if(state==="pause"){
+    if(px>=85&&px<=365&&py>=382&&py<=450){state="play";return}
+    if(px>=85&&px<=365&&py>=450&&py<=520){reset();state="title";return}
+    return;
+  }
+  flap();
+}
 c.addEventListener("pointerdown",input,{passive:false});c.addEventListener("touchstart",input,{passive:false});c.addEventListener("click",input,{passive:false});addEventListener("keydown",e=>{if(e.code==="Space"||e.code==="ArrowUp"){e.preventDefault();flap()}if(e.code==="KeyP")pause()});
